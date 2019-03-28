@@ -1,0 +1,132 @@
+{
+    "name": "REDCap Instance-Type Indicator",
+    "namespace": "RUB\\InstanceTypeIndicator\\ExternalModule",
+    "description": "Gives visual feedback about the instance type, such as <i>Development</i> or <i>Staging</i>. <strong><a href=\"https://github.com/grezniczek/redcap_instancetype_indicator\">See full documentation here</a></strong>.",
+    "permissions": [
+        "redcap_every_page_top"
+    ],
+    "enable-every-page-hooks-on-system-pages": true,
+    "authors": [
+        {
+            "name": "Günther Rezniczek",
+            "email": "guenther.rezniczek@rub.de",
+            "institution": "Ruhr-Universität Bochum"
+        }
+    ],
+    "system-settings": [
+        {
+            "name": "Type of Indicator",
+            "key": "indicator_type",
+            "type": "radio",
+            "choices": [
+                { "value": "disabled", "name": "Disabled" },
+                { "value": "dev", "name": "Development" },
+                { "value": "staging", "name": "Staging" },
+                { "value": "custom", "name": "Custom" }
+            ],
+            "repeatable": false
+        },
+        {
+            "name": "Position",
+            "key": "indicator_position",
+            "type": "radio",
+            "choices": [
+                { "value": "tl", "name": "Top Left" },
+                { "value": "tr", "name": "Top Right" },
+                { "value": "bl", "name": "Bottom Left" },
+                { "value": "br", "name": "Bottom Right" }
+            ],
+            "repeatable": false
+        },
+        {
+            "name": "Exclude Navbar",
+            "key": "indicator_navbar",
+            "type": "radio",
+            "choices": [
+                { "value": "below", "name": "Yes, show below" },
+                { "value": "over", "name": "No, show over" }
+            ],
+            "branchingLogic": {
+                "type": "or",
+                "conditions": [
+                    {
+                        "field": "indicator_position",
+                        "op": "=",
+                        "value": "tl"
+                    },
+                    {
+                        "field": "indicator_position",
+                        "op": "=",
+                        "value": "tr"
+                    }
+                ]
+            },
+            "repeatable": false
+        },
+        {
+            "name": "Style",
+            "key": "indicator_style",
+            "type": "radio",
+            "choices": [
+                { "value": "ribbon", "name": "Ribbon" },
+                { "value": "solid", "name": "Solid Triangle" }
+            ],
+            "repeatable": false
+        },
+        {
+            "name": "Opacity (default = 0.8)",
+            "key": "indicator_opacity",
+            "type": "text",
+            "repeatable": false
+        },
+        {
+            "name": "Scale (default = 1)",
+            "key": "indicator_scale",
+            "type": "text",
+            "repeatable": false
+        },
+        { 
+            "name": "Custom Indicator",
+            "key": "indicator_custom",
+            "type": "sub_settings",
+            "branchingLogic": {
+                "field": "indicator_type",
+                "op": "=",
+                "value": "custom"
+            },
+            "repeatable": false,
+            "sub_settings": [
+                {
+                    "name": "Text (defaults to 'CUSTOM')",
+                    "key": "indicator_text",
+                    "type": "text",
+                    "repeatable": false
+                },
+                {
+                    "name": "Font Size (defaults to 12)",
+                    "key": "indicator_fontsize",
+                    "type": "text",
+                    "repeatable": false
+                },
+                {
+                    "name": "Text Color (defaults to #FFFFFF = white)",
+                    "key": "indicator_color",
+                    "type": "text",
+                    "repeatable": false
+                },
+                {
+                    "name": "Background Color (defaults to #808080 = gray)",
+                    "key": "indicator_bgcolor",
+                    "type": "text",
+                    "repeatable": false
+                }
+            ]
+        }
+    ],
+    "compatibility": {
+        "php-version-min": "5.4.0",
+        "php-version-max": "",
+        "redcap-version-min": "8.1.0",
+        "redcap-version-max": ""
+     }
+}

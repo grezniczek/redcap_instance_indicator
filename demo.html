@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Indicator Demo</title>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ddd;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        a {
+            text-decoration: none;
+        }
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+
+<body class="flex">
+    <div style="position:fixed;left:0;top:0;opacity:0.8;z-index:999;pointer-events:none">
+        <svg width="100" height="100" transform="rotate(270)">
+            <polygon points="0,0 100,100 100,50 50,0" fill="red" style="opacity:0.8" />
+            <text text-anchor="middle" dominant-baseline="middle" x="50" y="50" fill="white"
+                transform="rotate(45,50,50) translate(0,-16)"
+                style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bold">DEVELOPMENT</text>
+        </svg>
+    </div>
+    <div style="position:fixed;right:0;top:0;opacity:0.8;z-index:999;pointer-events:none">
+        <svg width="100" height="100" transform="rotate(0)">
+            <polygon points="0,0 100,100 100,50 50,0" fill="red" style="opacity:0.8" />
+            <text text-anchor="middle" dominant-baseline="middle" x="50" y="50" fill="white"
+                transform="rotate(45,50,50) translate(0,-16)"
+                style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bold">DEVELOPMENT</text>
+        </svg>
+    </div>
+    <div style="position:fixed;left:0;bottom:0;opacity:0.8;z-index:999;pointer-events:none">
+        <svg width="100" height="100" transform="rotate(0)">
+            <polygon points="0,0 100,100 50,100 0,50" fill="red" style="opacity:0.8" />
+            <text text-anchor="middle" dominant-baseline="middle" x="50" y="50" fill="white"
+                transform="rotate(45,50,50) translate(0,16)"
+                style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bold">DEVELOPMENT</text>
+        </svg>
+    </div>
+    <div style="position:fixed;right:0;bottom:0;opacity:0.8;z-index:999;pointer-events:none">
+        <svg width="100" height="100" transform="rotate(270)">
+            <polygon points="0,0 100,100 50,100 0,50" fill="red" style="opacity:0.8" />
+            <text text-anchor="middle" dominant-baseline="middle" x="50" y="50" fill="white"
+                transform="rotate(45,50,50) translate(0,16)"
+                style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; font-weight: bold">DEVELOPMENT</text>
+        </svg>
+    </div>
+    <div style="text-align:center">
+        <h1>REDCap Instance Indicator Demo</h1>
+        <p><a href="https://github.com/grezniczek/redcap_instancetype_indicator">View documentation on GitHub</a></p>
+    </div>
+</body>
+
+</html>
