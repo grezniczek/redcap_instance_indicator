@@ -73,8 +73,9 @@ class ExternalModule extends AbstractExternalModule {
             // Show under/over navbar?
             $navbar = $posY == "top" && $style["navbar"] == "below";
             $display = $navbar ? "display:none;" : "";
+            $class = $style["printable"] ? "" : "d-print-none";
             // Using the calculated values, output the DIV with the SVG.
-            echo "<div id=\"redcap-instance-indicator\" 
+            echo "<div id=\"redcap-instance-indicator\" class=\"{$class}\" 
                     style=\"{$display}position:fixed;{$posX}:0;{$posY}:0;opacity:{$style["opacity"]};z-index:9999;pointer-events:none\">
                     <svg width=\"{$size}\" height=\"{$size}\" transform=\"rotate({$rotate})\">
                         <polygon points=\"{$poly}\" fill=\"{$style["bgcolor"]}\" style=\"opacity:{$style["opacity"]}\" />
@@ -126,6 +127,7 @@ class ExternalModule extends AbstractExternalModule {
         $style["position"] = $this->_getValue($values, "position", "tl");
         $style["navbar"] = $this->_getValue($values, "navbar", "over");
         $style["style"] = $this->_getValue($values, "style", "ribbon");
+        $style["printable"] = $this->_getValue($values, "printable", false);
         $style["opacity"] = $this->_getValue($values, "opacity", 0.8, true);
         $style["scale"] = $this->_getValue($values, "scale", 1.0, true);
         return $style;

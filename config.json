@@ -74,6 +74,12 @@
             "repeatable": false
         },
         {
+            "name": "Include on printouts (default = no)",
+            "key": "indicator_printable",
+            "type": "checkbox",
+            "repeatable": false
+        },
+        {
             "name": "Opacity (default = 0.8)",
             "key": "indicator_opacity",
             "type": "text",
