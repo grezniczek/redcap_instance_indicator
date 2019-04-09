@@ -1,6 +1,6 @@
 {
-    "name": "REDCap Instance-Type Indicator",
-    "namespace": "RUB\\InstanceTypeIndicator\\ExternalModule",
+    "name": "REDCap Instance Indicator",
+    "namespace": "RUB\\InstanceIndicatorExternalModule",
     "description": "Gives visual feedback about the instance type, such as <i>Development</i> or <i>Staging</i>. <strong><a href=\"https://github.com/grezniczek/redcap_instancetype_indicator\">See full documentation here</a></strong>.",
     "permissions": [
         "redcap_every_page_top"
@@ -127,6 +127,28 @@
                     "repeatable": false
                 }
             ]
+        },
+        {
+            "name": "Display for",
+            "key": "indicator_displayfor",
+            "type": "radio",
+            "choices": [
+                { "value": "everyone", "name": "Everyone" },
+                { "value": "superusers", "name": "Superusers" },
+                { "value": "selected", "name": "Selected Users" }
+            ],
+            "repeatable": false
+        },
+        {
+            "name": "Display for users (enter usernames, one username per line)",
+            "key": "indicator_displayfor_users",
+            "type": "textarea",
+            "branchingLogic": {
+                "field": "indicator_displayfor",
+                "op": "=",
+                "value": "selected"
+            },
+            "repeatable": false
         }
     ],
     "compatibility": {
