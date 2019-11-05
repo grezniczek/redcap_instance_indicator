@@ -11,6 +11,16 @@ use ExternalModules\ExternalModules;
  */
 class InstanceIndicatorExternalModule extends AbstractExternalModule {
 
+
+    private $style = array();
+
+    function __construct()
+    {
+        parent::__construct();
+
+        $this->style = $this->_getStyle();
+    }
+
     function redcap_every_page_top($project_id = null) {
         $this->injectIndicator();
     }
@@ -21,26 +31,25 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
      * 
      */
     function injectIndicator() {
-        $style = $this->_getStyle();
         // Only do the work if the indicator is not 'disabled'.
-        if ($style["type"] == "disabled") return;
+        if ($this->style["type"] == "disabled") return;
         // Limited display?
-        if ($style["displayfor"] == "superusers" && (SUPER_USER != "1")) return;
-        if ($style["displayfor"] == "selected" && !in_array(USERID, $style["displayfor_users"])) return;
+        if ($this->style["displayfor"] == "superusers" && (SUPER_USER != "1")) return;
+        if ($this->style["displayfor"] == "selected" && !in_array(USERID, $this->style["displayfor_users"])) return;
         
         // Calculate some values up front.
-        $size = 100 * $style["scale"];
+        $size = 100 * $this->style["scale"];
         $size2 = $size / 2;
-        $textXY = 50 * $style["scale"];
-        $translateY = 16 * $style["scale"];
-        $fontsize = $style["fontsize"] * $style["scale"];
+        $textXY = 50 * $this->style["scale"];
+        $translateY = 16 * $this->style["scale"];
+        $fontsize = $this->style["fontsize"] * $this->style["scale"];
         // Some values depend on where the indicator should be shown.
-        switch ($style["position"]) {
+        switch ($this->style["position"]) {
             case "tl":
                 $posX = "left";
                 $posY = "top";
                 $rotate = "270";
-                $poly = ($style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == ribbon) ? 
                     "0,0 {$size},{$size} {$size},{$size2} {$size2},0" : 
                     "0,0 {$size},{$size} {$size},0";
                 $translate = "0,-{$translateY}";
@@ -49,7 +58,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "right";
                 $posY = "top";
                 $rotate = "0";
-                $poly = ($style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == ribbon) ? 
                     "0,0 {$size},{$size} {$size},{$size2} {$size2},0" : 
                     "0,0 {$size},{$size} {$size},0";
                 $translate = "0,-{$translateY}";
@@ -58,7 +67,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "left";
                 $posY = "bottom";
                 $rotate = "0";
-                $poly = ($style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == ribbon) ? 
                     "0,0 {$size},{$size} {$size2},{$size} 0,{$size2}" : 
                     "0,0 {$size},{$size} 0,{$size}";
                 $translate = "0,{$translateY}";
@@ -67,7 +76,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "right";
                 $posY = "bottom";
                 $rotate = "270";
-                $poly = ($style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == ribbon) ? 
                     "0,0 {$size},{$size} {$size2},{$size} 0,{$size2}" : 
                     "0,0 {$size},{$size} 0,{$size}";
                 $translate = "0,{$translateY}";
@@ -75,18 +84,18 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 
         }
         // Show under/over navbar?
-        $navbar = $posY == "top" && $style["navbar"] == "below";
+        $navbar = $posY == "top" && $this->style["navbar"] == "below";
         $display = $navbar ? "display:none;" : "";
-        $class = $style["printable"] ? "" : "d-print-none";
+        $class = $this->style["printable"] ? "" : "d-print-none";
         // Using the calculated values, output the DIV with the SVG.
         echo "<div id=\"redcap-instance-indicator\" class=\"{$class}\" 
-                style=\"{$display}position:fixed;{$posX}:0;{$posY}:0;opacity:{$style["opacity"]};z-index:9999;pointer-events:none\">
+                style=\"{$display}position:fixed;{$posX}:0;{$posY}:0;opacity:{$this->style["opacity"]};z-index:9999;pointer-events:none\">
                 <svg width=\"{$size}\" height=\"{$size}\" transform=\"rotate({$rotate} )\">
-                    <polygon points=\"{$poly}\" fill=\"{$style["bgcolor"]}\" style=\"opacity:{$style["opacity"]}\" />
+                    <polygon points=\"{$poly}\" fill=\"{$this->style["bgcolor"]}\" style=\"opacity:{$this->style["opacity"]}\" />
                     <text text-anchor=\"middle\" dominant-baseline=\"middle\" x=\"{$textXY}\" y=\"{$textXY}\" 
-                        fill=\"{$style["color"]}\" transform=\"rotate(45,{$textXY},{$textXY}) translate({$translate})\" 
+                        fill=\"{$this->style["color"]}\" transform=\"rotate(45,{$textXY},{$textXY}) translate({$translate})\" 
                         style=\"font-size: {$fontsize}px; font-family: Open Sans, Helvetica, Arial, sans-serif; font-weight: bold\">
-                        {$style["text"]}
+                        {$this->style["text"]}
                     </text>
                 </svg>
             </div>";
@@ -104,7 +113,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
     /**
      * This helper function assembles the style values of the indicator based on 
      * the settings made in the External Module configuration.
-     * 
+     * @return array The style settings.
      */
     function _getStyle() {
         $values = ExternalModules::getSystemSettingsAsArray($this->PREFIX);
@@ -150,7 +159,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
      * @param bool $numeric
      *   Indicates whether the configuration value must be numeric. If it's not, 
      *   the default is returned instead.
-     * 
+     * @return mixed The value.
      */
     function _getValue($values, $name, $default, $numeric = false) {
         $value = $values["indicator_{$name}"]["system_value"];
@@ -160,6 +169,11 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
         return $value;
     }
 
+    /**
+     * This helper functions splits a user list (separated by newlines) into an array.
+     * @param $raw A newline-separated list of users ids.
+     * @return array Array of user ids.
+     */
     function _getUsers($raw) {
         $list = array();
         $rawList = explode("\n", $raw);
