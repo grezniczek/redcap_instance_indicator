@@ -14,14 +14,8 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
 
     private $style = array();
 
-    function __construct()
-    {
-        parent::__construct();
-
-        $this->style = $this->_getStyle();
-    }
-
     function redcap_every_page_top($project_id = null) {
+        $this->style = $this->_getStyle();
         $this->injectIndicator();
     }
 
@@ -49,7 +43,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "left";
                 $posY = "top";
                 $rotate = "270";
-                $poly = ($this->style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == "ribbon") ? 
                     "0,0 {$size},{$size} {$size},{$size2} {$size2},0" : 
                     "0,0 {$size},{$size} {$size},0";
                 $translate = "0,-{$translateY}";
@@ -58,7 +52,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "right";
                 $posY = "top";
                 $rotate = "0";
-                $poly = ($this->style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == "ribbon") ? 
                     "0,0 {$size},{$size} {$size},{$size2} {$size2},0" : 
                     "0,0 {$size},{$size} {$size},0";
                 $translate = "0,-{$translateY}";
@@ -67,7 +61,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "left";
                 $posY = "bottom";
                 $rotate = "0";
-                $poly = ($this->style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == "ribbon") ? 
                     "0,0 {$size},{$size} {$size2},{$size} 0,{$size2}" : 
                     "0,0 {$size},{$size} 0,{$size}";
                 $translate = "0,{$translateY}";
@@ -76,7 +70,7 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
                 $posX = "right";
                 $posY = "bottom";
                 $rotate = "270";
-                $poly = ($this->style["style"] == ribbon) ? 
+                $poly = ($this->style["style"] == "ribbon") ? 
                     "0,0 {$size},{$size} {$size2},{$size} 0,{$size2}" : 
                     "0,0 {$size},{$size} 0,{$size}";
                 $translate = "0,{$translateY}";
