@@ -27,9 +27,11 @@ class InstanceIndicatorExternalModule extends AbstractExternalModule {
     function injectIndicator() {
         // Only do the work if the indicator is not 'disabled'.
         if ($this->style["type"] == "disabled") return;
+        $user_id = defined("USERID") ? USERID : "";
+        $is_su = defined("SUPER_USER") && SUPER_USER == "1";
         // Limited display?
-        if ($this->style["displayfor"] == "superusers" && (SUPER_USER != "1")) return;
-        if ($this->style["displayfor"] == "selected" && !in_array(USERID, $this->style["displayfor_users"])) return;
+        if ($this->style["displayfor"] == "superusers" && !$is_su) return;
+        if ($this->style["displayfor"] == "selected" && !in_array($user_id, $this->style["displayfor_users"])) return;
         
         // Calculate some values up front.
         $size = 100 * $this->style["scale"];

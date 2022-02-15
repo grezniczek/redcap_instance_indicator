@@ -2,6 +2,7 @@
     "name": "REDCap Instance Indicator",
     "namespace": "RUB\\InstanceIndicatorExternalModule",
     "description": "Gives visual feedback about the instance type, such as <i>Development</i> or <i>Staging</i>. <strong><a href=\"https://github.com/grezniczek/redcap_instancetype_indicator\">See full documentation here</a></strong>.",
+    "framework-version": 8,
     "permissions": [
         "redcap_every_page_top"
     ],
@@ -152,7 +153,7 @@
         }
     ],
     "compatibility": {
-        "php-version-min": "5.4.0",
+        "php-version-min": "5.6.0",
         "php-version-max": "",
         "redcap-version-min": "8.1.0",
         "redcap-version-max": ""
