@@ -42,5 +42,4 @@ This has been produced by these settings:
 
 Version | Description
 ------- | --------------------
-v1.0.1  | Cosmetic updates; first (public) release.
 v1.0.0  | First release.
