@@ -42,4 +42,5 @@ This has been produced by these settings:
 
 Version | Description
 ------- | --------------------
+v1.0.1  | Removed Framework version to lower REDCap version requirements.
 v1.0.0  | First release.

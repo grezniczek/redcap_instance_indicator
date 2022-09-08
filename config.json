@@ -2,7 +2,6 @@
     "name": "REDCap Instance Indicator",
     "namespace": "RUB\\InstanceIndicatorExternalModule",
     "description": "Gives visual feedback about the instance type, such as <i>Development</i> or <i>Staging</i>.",
-    "framework-version": 8,
     "permissions": [
         "redcap_every_page_top"
     ],
